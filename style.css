@@ -6,14 +6,14 @@ window {
     font-family: "SF Pro Display", sans-serif;
     font-size: 150px;
     font-weight: bold;
-    color: #1E3A8A; /* A blue color similar to the image */
+    color: #1E3A8A;
 }
 
 .date-label {
     font-family: "SF Pro Text", sans-serif;
     font-size: 20px;
     font-weight: bold;
-    color: #1E3A8A; /* A dark gray color */
+    color: #1E3A8A;
 }
 
 .city-label, .time-zone-time, .time-offset {
@@ -35,7 +35,7 @@ window {
     font-family: "SF Pro Text", sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #6B7280; /* A lighter gray */
+    color: #6B7280;
 }
 
 .calendar-day {
@@ -45,7 +45,7 @@ window {
 }
 
 .current-day {
-    background-color: #1E3A8A; /* A blue for highlighting */
+    background-color: #1E3A8A;
     color: white;
     border-radius: 50%;
     padding: 10px 10px;
