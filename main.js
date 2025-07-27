@@ -18,19 +18,15 @@ app.connect("activate", () => {
     const win = new Gtk.ApplicationWindow({ application: app });
     win.set_default_size(1920, 1080); // Set to your full screen resolution
     win.set_decorated(false); // No titlebar or borders
-
-    // --- THIS IS THE KEY PART ---
-    // We connect to the "realize" signal to ensure the window exists before
-    // telling the compositor how to handle it.
+    
     win.connect('realize', () => {
         // Initialize the layer shell for this window
         LayerShell.init_for_window(win);
         
         // Set the layer to "BOTTOM". This places it on the desktop background,
-        // behind all other windows. This is what makes it a "widget".
+        // behind all other windows.
         LayerShell.set_layer(win, LayerShell.Layer.BOTTOM);
 
-        // Set the namespace. This is important for some Wayland compositors.
         LayerShell.set_namespace(win, "astal-widgets");
         
         // Anchor the window to all edges of the output. This makes the
@@ -41,7 +37,7 @@ app.connect("activate", () => {
         LayerShell.set_anchor(win, LayerShell.Edge.RIGHT, true);
     });
 
-    // --- Widget Creation (No changes here) ---
+    // --- Widget Creation ---
     const fixed = new Gtk.Fixed();
     win.set_child(fixed);
 
@@ -72,7 +68,7 @@ app.connect("activate", () => {
     fixed.put(gotThisLabel, 50, 420);
 
 
-    // --- Time Update Function (No changes here) ---
+    // --- Time Update Function ---
     function updateTime() {
         const now = GLib.DateTime.new_now_local();
         mainClock.set_label(now.format("%H:%M"));
@@ -92,7 +88,7 @@ app.connect("activate", () => {
 });
 
 
-// Helper functions (No changes here)
+// Helper functions 
 function createTimeZoneClock(city, offset) {
     const box = new Gtk.Box({ spacing: 10 });
     const cityLabel = new Gtk.Label({ label: city, css_classes: ["city-label"] });
