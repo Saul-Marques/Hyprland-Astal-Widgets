@@ -1,7 +1,16 @@
-window {
-    background-color: transparent;
+
+/* --- Spotify Widget --- */
+.spotify-widget {
+    /* A dark, semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* The rounded corners */
+    border-radius: 20px;
 }
 
+.spotify-album-art {
+    /* If there's no cover, this will be the placeholder color */
+    background-color: rgba(30, 30, 30, 0.5);
+    border-radius: 10px;
 .main-clock {
     font-family: "SF Pro Display", sans-serif;
     font-size: 150px;
@@ -16,10 +25,11 @@ window {
     color: #1E3A8A;
 }
 
-.city-label, .time-zone-time, .time-offset {
+.spotify-title {
     font-family: "SF Pro Display", sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    color: white;
     color: #1E3A8A;
 }
 
@@ -38,19 +48,27 @@ window {
     color: #6B7280;
 }
 
-.calendar-day {
+.spotify-artist {
     font-family: "SF Pro Text", sans-serif;
     font-size: 14px;
-    color: #374151;
+    color: #CCCCCC; /* A light grey for the artist */
 }
 
+.spotify-button {
+    font-size: 24px;
 .current-day {
     background-color: #1E3A8A;
     color: white;
-    border-radius: 50%;
-    padding: 10px 10px;
+    /* Make the button itself invisible, leaving only the icon */
+    background: transparent;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
 }
 
+.spotify-button:hover {
+    color: #AAAAAA; /* slight dim on hover */
+}
 .motivation-text {
     font-family: "SF Pro Text", sans-serif;
     font-size: 14px;

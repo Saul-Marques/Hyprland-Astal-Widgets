@@ -1,0 +1,104 @@
+/* themes/green.css */
+window {
+    background-color: transparent;
+}
+
+.main-clock, .date-label, .city-label, .time-zone-time, .time-offset {
+    font-family: "SF Pro Display", sans-serif;
+    color: #9bafa3; /* Dark Green */
+    font-weight: bold;
+}
+
+.main-clock { font-size: 150px; }
+.date-label { 
+    font-size: 20px;
+    color: #b2c2b9;
+}
+.city-label, .time-zone-time, .time-offset { font-size: 16px; }
+
+.calendar-month {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #879b8f;
+    margin-bottom: 10px;
+}
+
+.calendar-header {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #bedac9;
+}
+
+.calendar-day {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    color: #879b8f;
+}
+
+.current-day {
+    background-color: #166534; /* Dark Green */
+    color: white;
+    border-radius: 50%;
+    padding: 10px 10px;
+}
+
+.motivation-text, .motivation-text-bold {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #879b8f;
+}
+
+.motivation-text-bold { font-weight: bold; }
+
+/* Style for the theme picker */
+.theme-picker-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #374151;
+    border-radius: 50%;
+    min-height: 20px;
+    min-width: 20px;
+    padding: 0;
+}
+
+.spotify-widget {
+    /* A dark, semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* The rounded corners */
+    border-radius: 20px;
+}
+
+.spotify-album-art {
+    /* If there's no cover, this will be the placeholder color */
+    background-color: rgba(30, 30, 30, 0.5);
+    border-radius: 10px;
+}
+
+.spotify-title {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.spotify-artist {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    color: #CCCCCC; /* A light grey for the artist */
+}
+
+.spotify-button {
+    font-size: 24px;
+    color: white;
+    /* Make the button itself invisible, leaving only the icon */
+    background: transparent;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.spotify-button:hover {
+    color: #AAAAAA; /* slight dim on hover */
+}
