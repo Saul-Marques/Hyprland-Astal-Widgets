@@ -8,7 +8,6 @@ const LayerShell = imports.gi.Gtk4LayerShell;
 const SpotifyWidget = imports.spotify; // Your new Spotify import
 
 // --- 1. THEME CONFIGURATION ---
-// IMPORTANT: Replace 'YOUR_USER' with your actual username.
 const themes = {
     'blue': {
         css: '/home/saul/minhaconfig/themes/blue.css',
@@ -61,16 +60,13 @@ const app = new Gtk.Application({
 
 app.connect("activate", () => {
     // We combine CSS providers. One for themes, one for the static Spotify widget.
-    // NOTE: The Spotify widget now needs to load its own CSS. I'll assume it's in a file called 'spotify.css'
     const themeProvider = new Gtk.CssProvider();
     Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), themeProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     // This provider is for widgets that should NOT change with the theme.
     const staticProvider = new Gtk.CssProvider();
-    // ASSUMPTION: Your spotify.js needs spotify.css to style itself.
-    staticProvider.load_from_path('style.css');
+    staticProvider.load_from_path('style.css'); // spotify.css could be imported by spotify.js if needed
     Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), staticProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
 
     // --- 3. THEME APPLYING FUNCTION ---
     function applyTheme(themeName) {
@@ -79,12 +75,10 @@ app.connect("activate", () => {
             return;
         }
         const theme = themes[themeName];
-        // We only load the THEME CSS into the themeProvider. The staticProvider is untouched.
         themeProvider.load_from_path(theme.css);
 
         // Change the wallpaper using hyprctl
-        // IMPORTANT: Replace 'DP-1' with your monitor's name.
-        const monitorName = 'eDP-1';
+        const monitorName = 'eDP-1'; // update to your monitor if needed
         const hyprctl_command = `hyprctl hyprpaper wallpaper "${monitorName},${theme.wallpaper}"`;
         GLib.spawn_command_line_async(hyprctl_command);
 
@@ -93,12 +87,16 @@ app.connect("activate", () => {
     }
 
     const win = new Gtk.ApplicationWindow({ application: app });
-    win.set_default_size(1920, 1080);
-    win.set_decorated(false);
+    win.set_default_size(1920, 1080); // Set to your full screen resolution
+    win.set_decorated(false); // No titlebar or borders
 
     win.connect('realize', () => {
         LayerShell.init_for_window(win);
+
+        // Set the layer to "BOTTOM". This places it on the desktop background,
+        // behind all other windows.
         LayerShell.set_layer(win, LayerShell.Layer.BOTTOM);
+
         LayerShell.set_namespace(win, "astal-widgets");
         LayerShell.set_anchor(win, LayerShell.Edge.TOP, true);
         LayerShell.set_anchor(win, LayerShell.Edge.BOTTOM, true);
@@ -140,39 +138,32 @@ app.connect("activate", () => {
     const spotifyWidget = SpotifyWidget.createSpotifyWidget();
     fixed.put(spotifyWidget, 1540, 550);
 
+    // --- Theme Picker (da branch staging) ---
+    const themePickerBox = new Gtk.Box({ spacing: 10 });
+    fixed.put(themePickerBox, 50, 500);
 
-const themePickerBox = new Gtk.Box({ spacing: 10 });
-fixed.put(themePickerBox, 50, 500);
+    for (const themeName in themes) {
+        const button = new Gtk.Button({ css_classes: ["theme-picker-button"] });
+        const themeColors = {
+            'blue': 'rgba(30, 58, 138, 0.7)',
+            'green': 'rgba(22, 101, 52, 0.7)',
+            'dark': 'rgba(17, 24, 39, 0.8)',
+            'orange': 'rgba(255, 174, 0, 0.8)',
+        };
 
-for (const themeName in themes) {
-    const button = new Gtk.Button({ css_classes: ["theme-picker-button"] });
-    const themeColors = {
-        'blue': 'rgba(30, 58, 138, 0.7)',
-        'green': 'rgba(22, 101, 52, 0.7)',
-        'dark': 'rgba(17, 24, 39, 0.8)',
-        'orange': 'rgba(255, 174, 0, 0.8)',
+        const css_data = `.theme-picker-button.${themeName} { background-color: ${themeColors[themeName]}; }`;
 
-    };
+        const buttonProvider = new Gtk.CssProvider();
+        // Se der erro com o segundo argumento, usa: buttonProvider.load_from_data(css_data);
+        buttonProvider.load_from_data(css_data, css_data.length);
 
-    const css_data = `.theme-picker-button.${themeName} { background-color: ${themeColors[themeName]}; }`;
-    
-    // Create and apply a specific provider for this button's style
-    const buttonProvider = new Gtk.CssProvider();
-    // THE FIX: Add the length of the string as the second argument
-    buttonProvider.load_from_data(css_data, css_data.length);
+        button.get_style_context().add_class(themeName);
+        button.get_style_context().add_provider(buttonProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-    // Add a class to the button to target it with the CSS
-    button.get_style_context().add_class(themeName);
-
-    // Apply the provider to the button's style context
-    button.get_style_context().add_provider(buttonProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-    button.set_tooltip_text(`Switch to ${themeName} theme`);
-    button.connect('clicked', () => {
-        applyTheme(themeName);
-    });
-    themePickerBox.append(button);
-}
+        button.set_tooltip_text(`Switch to ${themeName} theme`);
+        button.connect('clicked', () => applyTheme(themeName));
+        themePickerBox.append(button);
+    }
 
     // --- Time Update Function ---
     function updateTime() {
@@ -184,7 +175,7 @@ for (const themeName in themes) {
         sydClock.timeLabel.set_label(now.add_hours(10).format("%H:%M"));
         return GLib.SOURCE_CONTINUE;
     }
-    
+
     GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, updateTime);
     updateTime();
 
@@ -195,7 +186,7 @@ for (const themeName in themes) {
     win.present();
 });
 
-// Helper functions (No changes here)
+// Helper functions
 function createTimeZoneClock(city, offset) {
     const box = new Gtk.Box({ spacing: 10 });
     const cityLabel = new Gtk.Label({ label: city, css_classes: ["city-label"] });
