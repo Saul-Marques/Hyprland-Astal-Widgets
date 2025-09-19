@@ -11,6 +11,18 @@
     /* If there's no cover, this will be the placeholder color */
     background-color: rgba(30, 30, 30, 0.5);
     border-radius: 10px;
+.main-clock {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 150px;
+    font-weight: bold;
+    color: #1E3A8A;
+}
+
+.date-label {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1E3A8A;
 }
 
 .spotify-title {
@@ -18,6 +30,22 @@
     font-size: 18px;
     font-weight: bold;
     color: white;
+    color: #1E3A8A;
+}
+
+.calendar-month {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.calendar-header {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B7280;
 }
 
 .spotify-artist {
@@ -28,6 +56,8 @@
 
 .spotify-button {
     font-size: 24px;
+.current-day {
+    background-color: #1E3A8A;
     color: white;
     /* Make the button itself invisible, leaving only the icon */
     background: transparent;
@@ -38,4 +68,18 @@
 
 .spotify-button:hover {
     color: #AAAAAA; /* slight dim on hover */
+}
+.motivation-text {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #374151;
+}
+
+.motivation-text-bold {
+    font-family: "SF Pro Text", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    color: #374151;
 }

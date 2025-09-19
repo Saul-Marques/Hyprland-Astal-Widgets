@@ -90,6 +90,7 @@ app.connect("activate", () => {
     win.set_default_size(1920, 1080); // Set to your full screen resolution
     win.set_decorated(false); // No titlebar or borders
 
+    
     win.connect('realize', () => {
         LayerShell.init_for_window(win);
 
@@ -187,6 +188,8 @@ app.connect("activate", () => {
 });
 
 // Helper functions
+
+// Helper functions 
 function createTimeZoneClock(city, offset) {
     const box = new Gtk.Box({ spacing: 10 });
     const cityLabel = new Gtk.Label({ label: city, css_classes: ["city-label"] });
